@@ -8,7 +8,7 @@
 {% endblock header %}
 
 {% block content %}
-  <form action="{% url 'LearningLogs:new_entry' topic.id %}" method='post' class="form">
+  <form action="{% url 'LearningLogs:new_entry' topic.slug %}" method='post' class="form">
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}

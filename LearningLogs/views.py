@@ -51,8 +51,8 @@ def new_topic(request):
 
 
 @login_required
-def new_entry(request, topic_id):
-    topic = Topic.objects.get(id=topic_id)
+def new_entry(request, topic_slug):
+    topic = Topic.objects.get(slug=topic_slug)
     check_topic_owner(request, topic)
 
 
@@ -66,7 +66,7 @@ def new_entry(request, topic_id):
             new_entry.save()
 
             return HttpResponseRedirect(reverse('LearningLogs:topic',
-                                                args=[topic.id]))
+                                                args=[topic.slug]))
 
     context = {'topic': topic, 'form': form}
     return render(request, 'LearningLogs/new_entry.html', context)
