@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Topic(models.Model):
     text = models.CharField(max_length=200)
-    slug = models.SlugField(auto_created=text)
+    slug = models.SlugField()
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User)
 
