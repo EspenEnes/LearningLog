@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+
 
 # Create your models here.
 
@@ -12,9 +14,25 @@ class Topic(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.text)
+        super(Topic, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.text
+
+
+class Comments(models.Model):
+    owner = models.ForeignKey(User)
+    text = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    entry = models.ForeignKey("LearningLogs.Entry")
+
+    def __str__(self):
+        return self.text
+
+
 
 
 class Entry(models.Model):
