@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 
-from .models import Topic, Entry
+from .models import Topic, Entry, Comments
 from .forms import TopicForm, EntryForm
 
 
@@ -30,7 +30,10 @@ def topic(request, topic_slug):
     topic = Topic.objects.get(slug=topic_slug)
     check_topic_owner(request, topic)
     entries = topic.entry_set.order_by('-date_added')
-    context = {'topic': topic, 'entries': entries}
+    comments = Comments.objects.all()
+
+
+    context = {'topic': topic, 'entries': entries, 'comments':comments}
     return render(request, 'LearningLogs/topic.html', context)
 
 

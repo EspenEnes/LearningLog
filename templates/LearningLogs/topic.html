@@ -21,6 +21,23 @@
       </div>
       <div class="panel-boady">
         {{ entry.text|linebreaks }}
+
+          {% for comment in comments %}
+
+              {% if comment.entry == entry %}
+                   <div class="panel panel-info">
+                   <div class="panel-heading">
+
+                       <h6>Commented by {{ comment.owner }}</h6>
+                   </div>
+                  <div class="panel-boady">
+              <h5>{{ comment.text }}</h5>
+                  </div>
+                   </div>
+
+              {% endif %}
+              {% empty %}
+              {% endfor %}
       </div>
     </div>
   {% empty %}
