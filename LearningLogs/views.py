@@ -14,7 +14,7 @@ from .forms import TopicForm, EntryForm
 # Create your views here.
 
 def index(request):
-    entries =  Entry.objects.all().order_by('-date_added')
+    entries =  Entry.objects.all().filter(public=True).order_by('-date_added')
     context = {'entries': entries}
     return render(request,"LearningLogs/index.html", context)
 
@@ -99,5 +99,11 @@ def edit_entry(request, entry_id):
 def check_topic_owner(request, topic):
     if topic.owner != request.user:
         raise Http404
+
+def public_topics(request, topic_slug):
+    entries = Entry.objects.all().filter(public=True).filter(topic_slug=topic_slug).order_by('-date_added')
+    context = {'entries': entries}
+    return render(request, 'LearningLogs/public_entries.html.html', context)
+
 
 
