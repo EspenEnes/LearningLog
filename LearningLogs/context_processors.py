@@ -1,7 +1,15 @@
 from .models import Topic, Entry
 
+
 def add_variables_to_context(request):
-    topic = Topic.objects.all()
+
+
+    if request.user.is_authenticated():
+        topic = Topic.objects.filter(owner=request.user)
+    else:
+        topic = []
+
+
     publicEntries = Entry.objects.filter(public=True)
     b = []
     publicTopics = []

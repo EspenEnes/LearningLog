@@ -101,9 +101,9 @@ def check_topic_owner(request, topic):
         raise Http404
 
 def public_topics(request, topic_slug):
-    entries = Entry.objects.all().filter(public=True).filter(topic_slug=topic_slug).order_by('-date_added')
-    context = {'entries': entries}
-    return render(request, 'LearningLogs/public_entries.html.html', context)
+    entries = Entry.objects.all().filter(public=True,topic__slug=topic_slug).order_by('-date_added')
+    context = {"entries": entries}
+    return render(request, 'LearningLogs/public_entries.html', context)
 
 
 

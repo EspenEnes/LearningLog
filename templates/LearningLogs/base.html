@@ -31,7 +31,7 @@
          <ul class="dropdown-menu">
 
          {%if user.is_authenticated %}
-              <li><a href="{% url 'LearningLogs:topics' %}">Topics</a></li>
+              <li><a href="{% url 'LearningLogs:topics' %}">My topics</a></li>
              <li><a href="{% url 'LearningLogs:new_topic' %}">Add Topic</a></li>
              <li role="separator" class="divider"></li>
          {% for topic in MenuTopics %}
@@ -49,6 +49,15 @@
 
          </ul>
                      </li>
+
+
+
+
+
+
+
+
+
                  {%if user.is_authenticated %}
 
 
@@ -76,6 +85,8 @@
                 <li><a href="{% url 'users:login' %}"><span class="glyphicon glyphicon-log-in"></span> log in</a> </li>
                 {% endif %}
             </ul>
+
+
         </div>
         <!--/.nav-collapse-->
     </div>

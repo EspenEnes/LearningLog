@@ -1,14 +1,16 @@
 {% extends "LearningLogs/base.html" %}
 
 {% block header %}
-    <h1>Public Entries for {{ entry.topic}}</h1>
 
 {% endblock header %}
 
 
 
+
+
 {% block content %}
-    {% for entry in entries %}
+
+{% for entry in entries %}
 
                      <div class="panel panel-default">
       <div class="panel-heading">
@@ -23,17 +25,10 @@
         </h3>
       </div>
                      <div class="panel-boady">
-        {{ entry.text|slice:":100" }}
+        {{ entry.text}}
       </div>
        </div>
 
                 {% endfor %}
-
-
-
-
-
-
-
 {% endblock content %}
 

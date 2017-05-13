@@ -25,7 +25,7 @@ SECRET_KEY = 'khg(we319n5=$!jvsaj*%tf%f*82*ppa1n=1(_erpf)u0*u3l='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.14']
 
 
 # Application definition
