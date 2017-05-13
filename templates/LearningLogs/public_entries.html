@@ -1,24 +1,14 @@
 {% extends "LearningLogs/base.html" %}
 
 {% block header %}
-    <div class="jumbotron">
-    <h1>Track your learning</h1>
-    </div>
+    <h1>Public Entries for {{ entry.topic}}</h1>
+
 {% endblock header %}
 
 
 
 {% block content %}
-    <h2>
-    {%if user.is_authenticated %}
-        Welcome, {{ user.username }} make new topics, and edit your entries
-    {% else %}
-        <a href="{% url 'users:register' %}">Register an account</a> to make your own Log.
-    {% endif %}
-    </h2>
-    <p> This is entries that have been made public</p>
-
-            {% for entry in entries %}
+    {% for entry in entries %}
 
                      <div class="panel panel-default">
       <div class="panel-heading">

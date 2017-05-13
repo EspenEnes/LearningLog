@@ -41,6 +41,12 @@
               <li><a href="{% url 'users:register' %}"><span class="glyphicon glyphicon-user"></span> register</a> </li>
                 <li><a href="{% url 'users:login' %}"><span class="glyphicon glyphicon-log-in"></span> log in</a> </li>
              {% endif %}
+         <li role="separator" class="divider"></li>
+          {% for publicTopics in publicTopics %}
+              <li><a href="{% url "LearningLogs:public_entries" publicTopics.topic.slug %}">{{ publicTopics.topic }}</a> </li>
+
+    {% endfor %}
+
          </ul>
                      </li>
                  {%if user.is_authenticated %}

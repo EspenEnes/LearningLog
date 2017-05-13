@@ -1,5 +1,19 @@
-from .models import Topic
+from .models import Topic, Entry
 
 def add_variables_to_context(request):
     topic = Topic.objects.all()
-    return{"MenuTopics": topic}
+    publicEntries = Entry.objects.filter(public=True)
+    b = []
+    publicTopics = []
+    for a in publicEntries:
+        if a.topic.text not in b:
+            b.append(a.topic.text)
+            publicTopics.append(a)
+
+
+
+
+
+
+
+    return{"MenuTopics": topic, "publicTopics":publicTopics,}
