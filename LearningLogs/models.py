@@ -19,7 +19,9 @@ class Topic(models.Model):
         super(Topic, self).save(*args, **kwargs)
 
 
-    def __str__(self):
+
+
+    def __unicode__(self):
         return self.text
 
 
@@ -29,7 +31,10 @@ class Comments(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     entry = models.ForeignKey("LearningLogs.Entry")
 
-    def __str__(self):
+    class Meta:
+        ordering = ['-date_added']
+
+    def __unicode__(self):
         return self.text
 
 
@@ -45,7 +50,7 @@ class Entry(models.Model):
     class Meta:
         verbose_name_plural = 'entries'
 
-    def __str__(self):
+    def __unicode__(self):
         """Return a string representation of the model."""
         return self.text[:50] + "..."
 

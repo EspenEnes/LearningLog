@@ -18,29 +18,59 @@
     </h2>
     <p> This is entries that have been made public</p>
 
-            {% for entry in entries %}
-
-                     <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3>
-          {{ entry.topic}}
-            <h6 >
-                <small>
-                    {{ entry.date_added }}
-                </small>
-
-            </h6>
-        </h3>
-      </div>
-                     <div class="panel-boady">
-        {{ entry.text|slice:":100" }}
-      </div>
-       </div>
-
-                {% endfor %}
 
 
 
+         {% for topic in publicTopics %}
+             <div class="panel panel-primary">
+             <div class="panel-heading">
+                 <div class="panel-title"><a data-toggle="collapse" href="#{{ topic.topic }}">{{ topic.topic }}  <h6>with {{ topic.topic.entry_set.all.count }} public entries</h6></a>
+
+                 </div>
+
+             </div>
+             <div id="{{ topic.topic }}" class="panel-collapse collapse">
+             <div class="panel-body">
+                 {% for entry in entries %}
+                     {% if entry.topic == topic.topic %}
+                      <div class="panel panel-primary">
+                      <div class="panel-heading">
+                          <h6 class="panel-title"><small>{{ entry.date_added }}</small> </h6>
+                      </div>
+                          <div class="panel-body">
+                          {{ entry.text }}
+
+                      </div>
+
+                      {% if entry.comments_set.count > 0 %}
+    <div class="panel-footer">
+    <a data-toggle="collapse" href="#{{ entry.id }}">{{  entry.comments_set.count }} comments</a>
+    <div id="{{ entry.id }}" class="panel-collapse collapse">
+        {% for comment in entry.comments_set.all %}
+                <div class="panel panel-info">
+                <div class="panel-heading">
+                <h6>Commented by {{ comment.owner }}  <small>on {{ comment.date_added }}</small> </h6>
+                </div>
+                <div class="panel-body">
+              <h5>{{ comment.text }}</h5>
+                </div>
+                </div>
+
+
+              {% endfor %}
+    </div>
+    </div>
+    {% endif %}
+
+
+                      </div>
+                     {% endif %}
+                     {% endfor %}
+             </div>
+
+             </div>
+             </div>
+      {% endfor %}
 
 
 

@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^new_topic/$',views.new_topic,name="new_topic"),
     url(r'^new_entry/(?P<topic_slug>\w+)/$', views.new_entry, name='new_entry'),
     url(r'^edit_entry/(?P<entry_id>\d+)/$',views.edit_entry,name='edit_entry'),
-    url(r'^public_entries/(?P<topic_slug>\w+)/$', views.public_topics, name='public_entries')
+    url(r'^public_entries/(?P<topic_slug>\w+)/$', views.public_topics, name='public_entries'),
+    url(r'^new_comment/(?P<entry_id>\d+)/$',views.new_comment, name='new_comment')
 ]

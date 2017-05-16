@@ -42,9 +42,11 @@
                 <li><a href="{% url 'users:login' %}"><span class="glyphicon glyphicon-log-in"></span> log in</a> </li>
              {% endif %}
          <li role="separator" class="divider"></li>
-          {% for publicTopics in publicTopics %}
-              <li><a href="{% url "LearningLogs:public_entries" publicTopics.topic.slug %}">{{ publicTopics.topic }}</a> </li>
-
+         <li class="dropdown-header">Publicated topics </li>
+          {% for publicTopic in publicTopics %}
+              {% if publicTopic.topic.owner != user %}
+              <li><a href="{% url "LearningLogs:public_entries" publicTopic.topic.slug %}">{{ publicTopic.topic }}</a> </li>
+{% endif %}
     {% endfor %}
 
          </ul>

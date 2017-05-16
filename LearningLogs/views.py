@@ -8,14 +8,15 @@ from django.contrib.auth.decorators import login_required
 
 
 from .models import Topic, Entry, Comments
-from .forms import TopicForm, EntryForm
+from .forms import TopicForm, EntryForm, CommentForm
 
 
 # Create your views here.
 
 def index(request):
     entries =  Entry.objects.all().filter(public=True).order_by('-date_added')
-    context = {'entries': entries}
+    topics = Topic.objects.all()
+    context = {'entries': entries, 'topics': topics}
     return render(request,"LearningLogs/index.html", context)
 
 @login_required
@@ -30,10 +31,9 @@ def topic(request, topic_slug):
     topic = Topic.objects.get(slug=topic_slug)
     check_topic_owner(request, topic)
     entries = topic.entry_set.order_by('-date_added')
-    comments = Comments.objects.all()
 
 
-    context = {'topic': topic, 'entries': entries, 'comments':comments}
+    context = {'topic': topic, 'entries': entries}
     return render(request, 'LearningLogs/topic.html', context)
 
 
@@ -102,8 +102,25 @@ def check_topic_owner(request, topic):
 
 def public_topics(request, topic_slug):
     entries = Entry.objects.all().filter(public=True,topic__slug=topic_slug).order_by('-date_added')
-    context = {"entries": entries}
+    comments = Comments.objects.filter(entry__topic__slug=topic_slug)
+    context = {"entries": entries, "comments": comments}
     return render(request, 'LearningLogs/public_entries.html', context)
+
+def new_comment(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    if request.method != 'POST':
+        form = CommentForm()
+    else:
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.entry = entry
+            new_comment.owner = request.user
+            new_comment.save()
+        return HttpResponseRedirect(reverse('LearningLogs:topics'))
+    context =  {"entry":entry, "form":form}
+    return render(request,'LearningLogs/new_comment.html',context)
+
 
 
 
