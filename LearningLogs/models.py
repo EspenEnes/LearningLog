@@ -54,5 +54,3 @@ class Entry(models.Model):
         """Return a string representation of the model."""
         return self.text[:50] + "..."
 
-
-

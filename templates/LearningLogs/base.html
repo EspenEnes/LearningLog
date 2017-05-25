@@ -1,4 +1,6 @@
 {% load bootstrap3 %}
+{% load staticfiles %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,16 +12,21 @@
     <title>Learning Log</title>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <script type="text/javascript" src="{% static 'jquery-3.2.1.js' %}"></script>
+
+
+
+
 </head>
 
 <body>
 <!--Static navbar-->
 
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
-            <a class="navbar-brand"href="{% url 'LearningLogs:index' %}">Learning Logs</a>
+            <a class="navbar-brand" href="{% url 'LearningLogs:index' %}">Learning Logs</a>
 
 
         </div>
@@ -97,6 +104,7 @@
 <div class="container">
     <div class="page-header">
     {% block header %}{% endblock header %}
+
         {% block content %}{% endblock content %}
 
     </div>

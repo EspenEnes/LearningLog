@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'LearningLogs.apps.LearninglogsConfig',
     'users.apps.UsersConfig',
-    'bootstrap3'
+    'bootstrap3',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'LearningLog.urls'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgiref.inmemory.ChannelLayer",
+        "ROUTING": "LearningLogs.routing.channel_routing",
+    },
+}
 
 TEMPLATES = [
     {
@@ -121,6 +129,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'LearningLogs/static/'),)
 
 STATIC_URL = '/static/'
 

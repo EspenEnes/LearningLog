@@ -9,6 +9,22 @@
 
 
 {% block content %}
+    <script type="text/javascript">
+    socket = new WebSocket('ws://' + window.location.host + "/index/");
+    socket.onopen = function () {
+        socket.send('{{ user.username }}');
+    };
+
+          socket.onmessage = function (msg) {
+        $('#test').text(msg.data);
+
+          };
+    </script>
+
+
+
+
+
     <h2>
     {%if user.is_authenticated %}
         Welcome, {{ user.username }} make new topics, and edit your entries
@@ -71,6 +87,11 @@
              </div>
              </div>
       {% endfor %}
+
+
+
+    <h6>Chat with other users  <div id="test"></div> </h6>
+
 
 
 
